@@ -5,10 +5,12 @@ backend:
   name: github
   repo: adrianwongstudio/legacy-financial-planning-test
   branch: main
-  # OAuth proxy — Cloudflare Worker at oauth-worker/. Deploy the worker
-  # (see oauth-worker/README.md), then replace this placeholder with the
-  # printed URL.
-  base_url: https://REPLACE_ME_WORKER_URL.workers.dev
+  # OAuth proxy — shared with the production site's Worker. The Worker
+  # doesn't need to know about individual repos, so both sites can route
+  # through it. If you ever want to separate them, deploy a fresh Worker
+  # from oauth-worker/ (change `name` in wrangler.toml first) and swap
+  # this URL for the new one.
+  base_url: https://decap-oauth-proxy.legacy-financial-planning.workers.dev
   auth_endpoint: /auth
 
 # Local development: when true, and when Decap detects the decap-server proxy
