@@ -1,0 +1,21 @@
+---
+layout: layout.njk
+---
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">{{ category }}</span>
+    <h1>{{ title }}</h1>
+    <p class="crumb">{{ date | readableDate }}{% if author %} &middot; by {{ author }}{% endif %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="article">
+      {% if image %}<img src="{{ image }}" alt="{{ title }}" />{% endif %}
+      {{ content | safe }}
+      <a class="back-link" href="/blog/">&larr; Back to all articles</a>
+    </article>
+  </div>
+</section>

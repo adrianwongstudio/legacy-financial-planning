@@ -1,0 +1,248 @@
+{% if section.type == "hero_slider" %}
+<section class="hero">
+  <div class="hero__slides">
+    {% for slide in section.slides %}
+    <div class="hero__slide {{ 'is-active' if loop.first }} {{ 'hero__slide--photo' if slide.background_image }}"
+         {% if slide.background_image %}style="background-image:url('{{ slide.background_image }}'); background-position:{{ slide.image_position or 'center' }};"{% endif %}>
+      <div class="wrap">
+        <div class="hero__inner">
+          <span class="eyebrow">{{ slide.eyebrow }}</span>
+          <h1>{{ slide.heading }}</h1>
+          <p>{{ slide.text }}</p>
+          <a href="{{ slide.button_link }}" class="btn btn--lg">{{ slide.button_label }}</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% if section.slides.length > 1 %}
+  <div class="hero__dots">
+    {% for slide in section.slides %}
+    <button class="{{ 'is-active' if loop.first }}" aria-label="Slide {{ loop.index }}"></button>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+{% elif section.type == "consultation_banner" %}
+<section class="banner">
+  <div class="wrap">
+    <h3>{{ section.text }}</h3>
+    <a href="{{ section.button_link or '/contact/' }}" class="btn">{{ section.button_label }}</a>
+  </div>
+</section>
+
+{% elif section.type == "feature_cards" %}
+<section class="features section">
+  <div class="wrap">
+    <div class="grid">
+      {% set fcIcons = [
+        '<svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 15-4-4 1.4-1.4L11 13.2l5.6-5.6L18 9l-7 7z"/></svg>',
+        '<svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>',
+        '<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-9.7-9.2C.7 8.4 2.5 5 6 5c2 0 3.3 1.1 4 2.1C10.7 6.1 12 5 14 5c3.5 0 5.3 3.4 3.7 6.8C19.5 16.3 12 21 12 21z"/></svg>'
+      ] %}
+      {% for f in section.cards %}
+      <div class="feature">
+        <div class="feature__icon">{{ fcIcons[loop.index0 % 3] | safe }}</div>
+        <h3>{{ f.title }}</h3>
+        {% if f.subtitle %}<h4>{{ f.subtitle }}</h4>{% endif %}
+        <p>{{ f.text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% elif section.type == "services" %}
+<section class="services section section--soft">
+  <div class="wrap">
+    <div class="section-head">
+      {% if section.eyebrow %}<span class="eyebrow">{{ section.eyebrow }}</span>{% endif %}
+      <h2>{{ section.heading }}</h2>
+      {% if section.text %}<p>{{ section.text }}</p>{% endif %}
+    </div>
+    <div class="grid">
+      {% set sIcons = [
+        '<svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4z"/></svg>',
+        '<svg viewBox="0 0 24 24"><path d="M3 13h4v8H3v-8zm7-6h4v14h-4V7zm7-4h4v18h-4V3z"/></svg>',
+        '<svg viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 8-4v6h2V8L12 3zM6 12.2V16c0 1.7 3.1 3 6 3s6-1.3 6-3v-3.8l-6 3-6-3z"/></svg>'
+      ] %}
+      {% for s in section.cards %}
+      <div class="service">
+        <div class="service__icon">{{ sIcons[loop.index0 % 3] | safe }}</div>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.text }}</p>
+        {% if s.button_label %}<a href="{{ s.button_link or '/contact/' }}" class="btn btn--outline">{{ s.button_label }}</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% elif section.type == "about" %}
+<section class="about section">
+  <div class="wrap">
+    <div class="about__media">
+      <div class="stat">
+        <b>{{ section.stat_number or '3' }}</b>
+        <span>{{ section.stat_text or 'Pillars: Protect · Grow · Secure' }}</span>
+      </div>
+    </div>
+    <div>
+      {% if section.eyebrow %}<span class="eyebrow">{{ section.eyebrow }}</span>{% endif %}
+      <h2>{{ section.heading }}</h2>
+      <p>{{ section.text }}</p>
+      {% if section.button_label %}<a href="{{ section.button_link or '/contact/' }}" class="btn">{{ section.button_label }}</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+{% elif section.type == "team" %}
+<section class="team section section--soft">
+  <div class="wrap">
+    <div class="section-head">
+      {% if section.eyebrow %}<span class="eyebrow">{{ section.eyebrow }}</span>{% endif %}
+      <h2>{{ section.heading }}</h2>
+      {% if section.text %}<p>{{ section.text }}</p>{% endif %}
+    </div>
+    <div class="grid">
+      {% for m in section.members %}
+      <div class="member">
+        <div class="member__photo">
+          {% if m.photo %}<img src="{{ m.photo }}" alt="{{ m.name }}" style="object-position: {{ m.photo_position or 'center' }};" />{% endif %}
+        </div>
+        <div class="member__body">
+          <h3>{{ m.name }}</h3>
+          <div class="member__role">{{ m.role }}</div>
+          <p>{{ m.bio }}</p>
+          <a href="/contact/" class="btn btn--outline">Contact</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% elif section.type == "blog_list" %}
+<section class="blog section">
+  <div class="wrap">
+    <div class="section-head">
+      {% if section.eyebrow %}<span class="eyebrow">{{ section.eyebrow }}</span>{% endif %}
+      <h2>{{ section.heading }}</h2>
+      {% if section.text %}<p>{{ section.text }}</p>{% endif %}
+    </div>
+    <div class="posts">
+      {% for post in collections.posts | reverse %}
+      {% if loop.index <= 3 %}
+      <article class="post-card">
+        <a class="post-card__img" href="{{ post.url }}">
+          {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
+        </a>
+        <div class="post-card__body">
+          <span class="post-card__cat">{{ post.data.category }}</span>
+          <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+          <div class="post-card__meta">{{ post.date | readableDate }}</div>
+        </div>
+      </article>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% if section.button_label %}
+    <div style="text-align:center; margin-top:44px;">
+      <a href="{{ section.button_link or '/blog/' }}" class="btn">{{ section.button_label }}</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% elif section.type == "tile_grid" %}
+<section class="features section {{ 'section--soft' if section.style == 'soft' }}" style="margin-top:0;">
+  <div class="wrap">
+    {% if section.heading or section.text %}
+    <div class="section-head">
+      {% if section.heading %}<h2>{{ section.heading }}</h2>{% endif %}
+      {% if section.text %}<p>{{ section.text }}</p>{% endif %}
+    </div>
+    {% endif %}
+    <div class="grid">
+      {% for t in section.tiles %}
+      <div class="feature">
+        <h3>{{ t.title }}</h3>
+        {% if t.subtitle %}<h4>{{ t.subtitle }}</h4>{% endif %}
+        {% if t.text %}<p>{{ t.text }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% elif section.type == "two_column" %}
+<section class="about section {{ 'section--soft' if section.style == 'soft' }} {{ 'about--reverse' if section.image_side == 'right' }}">
+  <div class="wrap">
+    {% if section.image %}
+    <div class="about__media about__media--photo">
+      <img src="{{ section.image }}" alt="" />
+    </div>
+    {% else %}
+    <div class="about__media"></div>
+    {% endif %}
+    <div>
+      <h2>{{ section.heading }}</h2>
+      {% if section.text %}<p>{{ section.text }}</p>{% endif %}
+      {% if section.button_label %}<a href="{{ section.button_link or '/contact/' }}" class="btn">{{ section.button_label }}</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+{% elif section.type == "cta_band" %}
+{% set _band = 'section--navy' if section.style == 'navy' else ('section--soft' if section.style == 'soft' else ('section--gold' if section.style == 'gold' else '')) %}
+<section class="cta section {{ _band }}">
+  <div class="wrap">
+    {% if section.eyebrow %}<span class="eyebrow">{{ section.eyebrow }}</span>{% endif %}
+    <h2>{{ section.heading }}</h2>
+    {% if section.text %}<p>{{ section.text }}</p>{% endif %}
+    {% if section.button_label %}<a href="{{ section.button_link or '/contact/' }}" class="btn btn--lg">{{ section.button_label }}</a>{% endif %}
+  </div>
+</section>
+
+{% elif section.type == "rich_text" %}
+<section class="section {{ 'section--soft' if section.style == 'soft' }}">
+  <div class="wrap">
+    <div class="prose">
+      {% if section.heading %}<h2>{{ section.heading }}</h2>{% endif %}
+      {{ section.body | md | safe }}
+    </div>
+  </div>
+</section>
+
+{% elif section.type == "service_cards" %}
+<section class="services section">
+  <div class="wrap">
+    {% if section.heading or section.text %}
+    <div class="section-head">
+      {% if section.heading %}<h2>{{ section.heading }}</h2>{% endif %}
+      {% if section.text %}<p>{{ section.text }}</p>{% endif %}
+    </div>
+    {% endif %}
+    <div class="grid">
+      {% for c in section.cards %}
+      <div class="service">
+        <h3>{{ c.title }}</h3>
+        {% if c.text %}<p>{{ c.text }}</p>{% endif %}
+        {% if c.button_label %}<a href="{{ c.button_link or '/contact/' }}" class="btn btn--outline">{{ c.button_label }}</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% elif section.type == "testimonial" %}
+<section class="testimonial section section--soft">
+  <div class="wrap">
+    <blockquote class="testimonial__quote">"{{ section.quote }}"</blockquote>
+    <cite class="testimonial__cite">
+      <strong>{{ section.author_name }}</strong>{% if section.author_role %} <span>— {{ section.author_role }}</span>{% endif %}
+    </cite>
+  </div>
+</section>
+{% endif %}

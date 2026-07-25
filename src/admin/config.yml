@@ -1,0 +1,255 @@
+# Decap CMS configuration
+# Editors log in at yoursite.com/admin/ and edit the content below.
+# The values here work once the site is on Netlify with Identity + Git Gateway enabled
+# (see SETUP-GUIDE for the 5-minute setup). To point at a specific GitHub repo instead,
+# replace the backend block with the commented "GitHub backend" example at the bottom.
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Local development: when true, and when Decap detects the decap-server proxy
+# running on localhost, the editor talks straight to your local git repo — no
+# login required. On the deployed site this flag is ignored (Netlify Identity
+# still handles login normally). Start the proxy with `npm run cms` in a second
+# terminal while `npm start` is running.
+local_backend: true
+
+# Where uploaded images (team photos, blog images, logo) are stored
+media_folder: "src/images"
+public_folder: "/images"
+
+# Show a live preview link while editing
+site_url: https://legacyfinancialplanning.ca
+display_url: https://legacyfinancialplanning.ca
+
+collections:
+  # ---------------------------------------------------------------- Blog posts
+  - name: "blog"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "src/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    sort_field: date
+    sort_direction: descending
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Category", name: "category", widget: "select", options: ["Insurance", "Investments", "Estate Planning", "Consulting", "Financial Planning"], default: "Financial Planning" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false, hint: "Upload at least 1200×750 for a sharp result. Shown at the top of the post and on the blog card." }
+      - { label: "Image focus point", name: "image_position", widget: "select", options: ["center", "top", "bottom"], default: "center", required: false, hint: "Which part of the image to keep in view when cropped." }
+      - { label: "Short Summary", name: "excerpt", widget: "text", hint: "1–2 sentences shown on the blog listing card." }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # --------------------------------------------------------------- Home page
+  - name: "home"
+    label: "Home Page"
+    editor: { preview: false }
+    files:
+      - name: "home"
+        label: "Home Page Content"
+        file: "src/_data/home.json"
+        fields:
+          - label: "Page Sections"
+            label_singular: "Section"
+            name: "sections"
+            widget: "list"
+            collapsed: true
+            minimize_collapsed: true
+            hint: "The whole home page is built from these sections in order. Click ‘Add Section’ to add one, drag the ═ handle at the top of a section to reorder, and click the ✕ to remove it. Deleting the Hero Slider removes the top banner entirely; deleting the Blog List removes the latest-posts section."
+            types:
+              - label: "Hero Slider"
+                name: "hero_slider"
+                widget: "object"
+                summary: "Hero Slider — {{fields.slides.0.heading}}"
+                fields:
+                  - label: "Slides"
+                    name: "slides"
+                    widget: "list"
+                    summary: "{{fields.heading}}"
+                    fields:
+                      - { label: "Small heading (eyebrow)", name: "eyebrow", widget: "string" }
+                      - { label: "Main heading", name: "heading", widget: "string" }
+                      - { label: "Paragraph", name: "text", widget: "text" }
+                      - { label: "Button label", name: "button_label", widget: "string" }
+                      - { label: "Button link", name: "button_link", widget: "string", default: "/contact/" }
+                      - { label: "Background image (optional)", name: "background_image", widget: "image", required: false, hint: "Wide landscape photo works best. Upload at least 1600×900 for a sharp result. Leave blank to keep the navy gradient." }
+                      - { label: "Image focus point", name: "image_position", widget: "select", options: ["center", "top", "bottom", "left", "right"], default: "center", required: false, hint: "Which part of the image to keep in view when cropped." }
+              - label: "Consultation Banner (gold band)"
+                name: "consultation_banner"
+                widget: "object"
+                summary: "Consultation Banner — {{fields.text}}"
+                fields:
+                  - { label: "Text", name: "text", widget: "string" }
+                  - { label: "Button label", name: "button_label", widget: "string" }
+                  - { label: "Button link", name: "button_link", widget: "string", default: "/contact/" }
+              - label: "Feature Cards (3 tiles with icons)"
+                name: "feature_cards"
+                widget: "object"
+                summary: "Feature Cards — {{fields.cards.0.title}}"
+                fields:
+                  - label: "Cards"
+                    name: "cards"
+                    widget: "list"
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+                      - { label: "Text", name: "text", widget: "text" }
+              - label: "Services (3-column with icons)"
+                name: "services"
+                widget: "object"
+                summary: "Services — {{fields.heading}}"
+                fields:
+                  - { label: "Small heading (eyebrow)", name: "eyebrow", widget: "string", required: false, default: "Our Services" }
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Intro text", name: "text", widget: "text", required: false }
+                  - label: "Cards"
+                    name: "cards"
+                    widget: "list"
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Text", name: "text", widget: "text" }
+                      - { label: "Button label", name: "button_label", widget: "string" }
+                      - { label: "Button link", name: "button_link", widget: "string", default: "/contact/" }
+              - label: "About / Why Choose Us"
+                name: "about"
+                widget: "object"
+                summary: "About — {{fields.heading}}"
+                fields:
+                  - { label: "Small heading (eyebrow)", name: "eyebrow", widget: "string", required: false, default: "Why Choose Us" }
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Text", name: "text", widget: "text" }
+                  - { label: "Stat number", name: "stat_number", widget: "string", required: false, default: "3" }
+                  - { label: "Stat text", name: "stat_text", widget: "string", required: false, default: "Pillars: Protect · Grow · Secure" }
+                  - { label: "Button label", name: "button_label", widget: "string", required: false, default: "Book a Consultation" }
+                  - { label: "Button link", name: "button_link", widget: "string", required: false, default: "/contact/" }
+              - label: "Team Members"
+                name: "team"
+                widget: "object"
+                summary: "Team — {{fields.heading}}"
+                fields:
+                  - { label: "Small heading (eyebrow)", name: "eyebrow", widget: "string", required: false, default: "Our Team" }
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Intro text", name: "text", widget: "text", required: false }
+                  - label: "Members"
+                    name: "members"
+                    widget: "list"
+                    summary: "{{fields.name}}"
+                    fields:
+                      - { label: "Name", name: "name", widget: "string" }
+                      - { label: "Role", name: "role", widget: "string" }
+                      - { label: "Photo", name: "photo", widget: "image", required: false, hint: "Upload at least 600×600 (portrait or square) for a sharp result." }
+                      - { label: "Photo focus point", name: "photo_position", widget: "select", options: ["center", "top", "bottom"], default: "center", required: false, hint: "Which part of the photo to keep in view when cropped — pick 'top' if the face gets cut off." }
+                      - { label: "Bio", name: "bio", widget: "text" }
+              - label: "Blog List (latest posts)"
+                name: "blog_list"
+                widget: "object"
+                summary: "Blog List — {{fields.heading}}"
+                fields:
+                  - { label: "Small heading (eyebrow)", name: "eyebrow", widget: "string", required: false }
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Intro text", name: "text", widget: "text", required: false }
+                  - { label: "Button label", name: "button_label", widget: "string", required: false, default: "View All Articles" }
+                  - { label: "Button link", name: "button_link", widget: "string", required: false, default: "/blog/" }
+              - label: "Tile Grid (like the three highlights)"
+                name: "tile_grid"
+                widget: "object"
+                summary: "Tile Grid — {{fields.heading}}"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro text", name: "text", widget: "text", required: false }
+                  - label: "Tiles"
+                    name: "tiles"
+                    widget: "list"
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+                      - { label: "Text", name: "text", widget: "text" }
+              - label: "Two-column (text + optional image)"
+                name: "two_column"
+                widget: "object"
+                summary: "Two-column — {{fields.heading}}"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Text", name: "text", widget: "text" }
+                  - { label: "Image (optional)", name: "image", widget: "image", required: false }
+                  - { label: "Image side", name: "image_side", widget: "select", options: ["left", "right"], default: "left", required: false }
+                  - { label: "Button label (optional)", name: "button_label", widget: "string", required: false }
+                  - { label: "Button link", name: "button_link", widget: "string", required: false, default: "/contact/" }
+                  - { label: "Background style", name: "style", widget: "select", options: ["plain", "soft"], default: "plain", required: false }
+              - label: "Full-width CTA Band"
+                name: "cta_band"
+                widget: "object"
+                summary: "CTA Band — {{fields.heading}}"
+                fields:
+                  - { label: "Small heading (eyebrow)", name: "eyebrow", widget: "string", required: false }
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Text", name: "text", widget: "text", required: false }
+                  - { label: "Button label", name: "button_label", widget: "string" }
+                  - { label: "Button link", name: "button_link", widget: "string", default: "/contact/" }
+                  - { label: "Background style", name: "style", widget: "select", options: ["navy", "gold", "soft", "plain"], default: "navy" }
+              - label: "Rich text block"
+                name: "rich_text"
+                widget: "object"
+                summary: "Rich Text — {{fields.heading}}"
+                fields:
+                  - { label: "Heading (optional)", name: "heading", widget: "string", required: false }
+                  - { label: "Body", name: "body", widget: "markdown" }
+                  - { label: "Background style", name: "style", widget: "select", options: ["plain", "soft"], default: "plain", required: false }
+              - label: "Service Cards (no icons)"
+                name: "service_cards"
+                widget: "object"
+                summary: "Service Cards — {{fields.heading}}"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro text", name: "text", widget: "text", required: false }
+                  - label: "Cards"
+                    name: "cards"
+                    widget: "list"
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Text", name: "text", widget: "text" }
+                      - { label: "Button label (optional)", name: "button_label", widget: "string", required: false }
+                      - { label: "Button link", name: "button_link", widget: "string", required: false, default: "/contact/" }
+              - label: "Testimonial"
+                name: "testimonial"
+                widget: "object"
+                summary: "Testimonial — {{fields.author_name}}"
+                fields:
+                  - { label: "Quote", name: "quote", widget: "text" }
+                  - { label: "Author name", name: "author_name", widget: "string" }
+                  - { label: "Author role (optional)", name: "author_role", widget: "string", required: false }
+
+  # --------------------------------------------------------- Contact / global
+  - name: "settings"
+    label: "Site Settings & Contact Info"
+    editor: { preview: false }
+    files:
+      - name: "site"
+        label: "Company & Contact Details"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Company Name", name: "name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Short Description (used in footer)", name: "description", widget: "text" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Primary Email", name: "email", widget: "string" }
+          - { label: "Secondary Email", name: "email_secondary", widget: "string", required: false }
+          - { label: "Address", name: "address", widget: "string" }
+          - { label: "Logo", name: "logo", widget: "image", required: false }
+
+# ---------------------------------------------------------------------------
+# ALTERNATIVE: GitHub backend (use this instead of git-gateway if you are not
+# using Netlify Identity). Replace the backend block at the top with:
+#
+# backend:
+#   name: github
+#   repo: your-github-username/legacy-financial-planning
+#   branch: main
+# ---------------------------------------------------------------------------

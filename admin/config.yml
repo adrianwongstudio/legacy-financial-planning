@@ -1,0 +1,151 @@
+# Decap CMS configuration
+# Editors log in at yoursite.com/admin/ and edit the content below.
+# The values here work once the site is on Netlify with Identity + Git Gateway enabled
+# (see SETUP-GUIDE for the 5-minute setup). To point at a specific GitHub repo instead,
+# replace the backend block with the commented "GitHub backend" example at the bottom.
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded images (team photos, blog images, logo) are stored
+media_folder: "src/images"
+public_folder: "/images"
+
+# Show a live preview link while editing
+site_url: https://legacyfinancialplanning.ca
+display_url: https://legacyfinancialplanning.ca
+
+collections:
+  # ---------------------------------------------------------------- Blog posts
+  - name: "blog"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "src/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    sort_field: date
+    sort_direction: descending
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Category", name: "category", widget: "select", options: ["Insurance", "Investments", "Estate Planning", "Consulting", "Financial Planning"], default: "Financial Planning" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false, hint: "Upload a photo for the top of the post and the blog card." }
+      - { label: "Short Summary", name: "excerpt", widget: "text", hint: "1–2 sentences shown on the blog listing card." }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # --------------------------------------------------------------- Home page
+  - name: "home"
+    label: "Home Page"
+    editor: { preview: false }
+    files:
+      - name: "home"
+        label: "Home Page Content"
+        file: "src/_data/home.json"
+        fields:
+          - label: "Hero Slides"
+            name: "hero_slides"
+            widget: "list"
+            summary: "{{fields.heading}}"
+            fields:
+              - { label: "Small heading (eyebrow)", name: "eyebrow", widget: "string" }
+              - { label: "Main heading", name: "heading", widget: "string" }
+              - { label: "Paragraph", name: "text", widget: "text" }
+              - { label: "Button label", name: "button_label", widget: "string" }
+              - { label: "Button link", name: "button_link", widget: "string", default: "/contact/" }
+          - label: "Consultation Banner"
+            name: "consultation_banner"
+            widget: "object"
+            fields:
+              - { label: "Text", name: "text", widget: "string" }
+              - { label: "Button label", name: "button_label", widget: "string" }
+              - { label: "Button link", name: "button_link", widget: "string", default: "/contact/" }
+          - label: "Feature Cards (the three highlights)"
+            name: "features"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+          - label: "Services Intro"
+            name: "services_intro"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Button label", name: "button_label", widget: "string" }
+              - { label: "Button link", name: "button_link", widget: "string", default: "/contact/" }
+          - label: "About / Why Choose Us"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+          - label: "Team Intro"
+            name: "team_intro"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+          - label: "Team Members"
+            name: "team"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Photo", name: "photo", widget: "image", required: false }
+              - { label: "Bio", name: "bio", widget: "text" }
+          - label: "Call To Action Band"
+            name: "cta"
+            widget: "object"
+            fields:
+              - { label: "Small heading", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Button label", name: "button_label", widget: "string" }
+              - { label: "Button link", name: "button_link", widget: "string", default: "/contact/" }
+          - label: "Blog Section Intro"
+            name: "blog_intro"
+            widget: "object"
+            fields:
+              - { label: "Small heading", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+
+  # --------------------------------------------------------- Contact / global
+  - name: "settings"
+    label: "Site Settings & Contact Info"
+    editor: { preview: false }
+    files:
+      - name: "site"
+        label: "Company & Contact Details"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Company Name", name: "name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Short Description (used in footer)", name: "description", widget: "text" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Primary Email", name: "email", widget: "string" }
+          - { label: "Secondary Email", name: "email_secondary", widget: "string" }
+          - { label: "Address", name: "address", widget: "string" }
+          - { label: "Logo", name: "logo", widget: "image", required: false }
+
+# ---------------------------------------------------------------------------
+# ALTERNATIVE: GitHub backend (use this instead of git-gateway if you are not
+# using Netlify Identity). Replace the backend block at the top with:
+#
+# backend:
+#   name: github
+#   repo: your-github-username/legacy-financial-planning
+#   branch: main
+# ---------------------------------------------------------------------------

@@ -1,0 +1,9 @@
+---
+layout: layout.njk
+title: Home
+permalink: /
+---
+
+{% for section in home.sections %}
+  {% include "custom-section.njk" %}
+{% endfor %}
