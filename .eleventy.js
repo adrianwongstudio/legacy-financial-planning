@@ -25,5 +25,9 @@ module.exports = function (eleventyConfig) {
       input: "src",
       output: "_site",
     },
+    // Path under which the site is served. Empty on custom domains,
+    // "/repo-name/" on GitHub Pages project sites. Combined with the
+    // `| url` filter in templates it prepends the prefix to every link.
+    pathPrefix: process.env.PATH_PREFIX || "/",
   };
 };

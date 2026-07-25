@@ -3,13 +3,13 @@
   <div class="hero__slides">
     {% for slide in section.slides %}
     <div class="hero__slide {{ 'is-active' if loop.first }} {{ 'hero__slide--photo' if slide.background_image }}"
-         {% if slide.background_image %}style="background-image:url('{{ slide.background_image }}'); background-position:{{ slide.image_position or 'center' }};"{% endif %}>
+         {% if slide.background_image %}style="background-image:url('{{ slide.background_image | url }}'); background-position:{{ slide.image_position or 'center' }};"{% endif %}>
       <div class="wrap">
         <div class="hero__inner">
           <span class="eyebrow">{{ slide.eyebrow }}</span>
           <h1>{{ slide.heading }}</h1>
           <p>{{ slide.text }}</p>
-          <a href="{{ slide.button_link }}" class="btn btn--lg">{{ slide.button_label }}</a>
+          <a href="{{ slide.button_link | url }}" class="btn btn--lg">{{ slide.button_label }}</a>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
 <section class="banner">
   <div class="wrap">
     <h3>{{ section.text }}</h3>
-    <a href="{{ section.button_link or '/contact/' }}" class="btn">{{ section.button_label }}</a>
+    <a href="{{ (section.button_link or '/contact/') | url }}" class="btn">{{ section.button_label }}</a>
   </div>
 </section>
 
@@ -72,7 +72,7 @@
         <div class="service__icon">{{ sIcons[loop.index0 % 3] | safe }}</div>
         <h3>{{ s.title }}</h3>
         <p>{{ s.text }}</p>
-        {% if s.button_label %}<a href="{{ s.button_link or '/contact/' }}" class="btn btn--outline">{{ s.button_label }}</a>{% endif %}
+        {% if s.button_label %}<a href="{{ (s.button_link or '/contact/') | url }}" class="btn btn--outline">{{ s.button_label }}</a>{% endif %}
       </div>
       {% endfor %}
     </div>
@@ -92,7 +92,7 @@
       {% if section.eyebrow %}<span class="eyebrow">{{ section.eyebrow }}</span>{% endif %}
       <h2>{{ section.heading }}</h2>
       <p>{{ section.text }}</p>
-      {% if section.button_label %}<a href="{{ section.button_link or '/contact/' }}" class="btn">{{ section.button_label }}</a>{% endif %}
+      {% if section.button_label %}<a href="{{ (section.button_link or '/contact/') | url }}" class="btn">{{ section.button_label }}</a>{% endif %}
     </div>
   </div>
 </section>
@@ -109,13 +109,13 @@
       {% for m in section.members %}
       <div class="member">
         <div class="member__photo">
-          {% if m.photo %}<img src="{{ m.photo }}" alt="{{ m.name }}" style="object-position: {{ m.photo_position or 'center' }};" />{% endif %}
+          {% if m.photo %}<img src="{{ m.photo | url }}" alt="{{ m.name }}" style="object-position: {{ m.photo_position or 'center' }};" />{% endif %}
         </div>
         <div class="member__body">
           <h3>{{ m.name }}</h3>
           <div class="member__role">{{ m.role }}</div>
           <p>{{ m.bio }}</p>
-          <a href="/contact/" class="btn btn--outline">Contact</a>
+          <a href="{{ '/contact/' | url }}" class="btn btn--outline">Contact</a>
         </div>
       </div>
       {% endfor %}
@@ -135,12 +135,12 @@
       {% for post in collections.posts | reverse %}
       {% if loop.index <= 3 %}
       <article class="post-card">
-        <a class="post-card__img" href="{{ post.url }}">
-          {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
+        <a class="post-card__img" href="{{ post.url | url }}">
+          {% if post.data.image %}<img src="{{ post.data.image | url }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
         </a>
         <div class="post-card__body">
           <span class="post-card__cat">{{ post.data.category }}</span>
-          <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+          <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
           <div class="post-card__meta">{{ post.date | readableDate }}</div>
         </div>
       </article>
@@ -149,7 +149,7 @@
     </div>
     {% if section.button_label %}
     <div style="text-align:center; margin-top:44px;">
-      <a href="{{ section.button_link or '/blog/' }}" class="btn">{{ section.button_label }}</a>
+      <a href="{{ (section.button_link or '/blog/') | url }}" class="btn">{{ section.button_label }}</a>
     </div>
     {% endif %}
   </div>
@@ -181,7 +181,7 @@
   <div class="wrap">
     {% if section.image %}
     <div class="about__media about__media--photo">
-      <img src="{{ section.image }}" alt="" />
+      <img src="{{ section.image | url }}" alt="" />
     </div>
     {% else %}
     <div class="about__media"></div>
@@ -189,7 +189,7 @@
     <div>
       <h2>{{ section.heading }}</h2>
       {% if section.text %}<p>{{ section.text }}</p>{% endif %}
-      {% if section.button_label %}<a href="{{ section.button_link or '/contact/' }}" class="btn">{{ section.button_label }}</a>{% endif %}
+      {% if section.button_label %}<a href="{{ (section.button_link or '/contact/') | url }}" class="btn">{{ section.button_label }}</a>{% endif %}
     </div>
   </div>
 </section>
@@ -201,7 +201,7 @@
     {% if section.eyebrow %}<span class="eyebrow">{{ section.eyebrow }}</span>{% endif %}
     <h2>{{ section.heading }}</h2>
     {% if section.text %}<p>{{ section.text }}</p>{% endif %}
-    {% if section.button_label %}<a href="{{ section.button_link or '/contact/' }}" class="btn btn--lg">{{ section.button_label }}</a>{% endif %}
+    {% if section.button_label %}<a href="{{ (section.button_link or '/contact/') | url }}" class="btn btn--lg">{{ section.button_label }}</a>{% endif %}
   </div>
 </section>
 
@@ -229,7 +229,7 @@
       <div class="service">
         <h3>{{ c.title }}</h3>
         {% if c.text %}<p>{{ c.text }}</p>{% endif %}
-        {% if c.button_label %}<a href="{{ c.button_link or '/contact/' }}" class="btn btn--outline">{{ c.button_label }}</a>{% endif %}
+        {% if c.button_label %}<a href="{{ (c.button_link or '/contact/') | url }}" class="btn btn--outline">{{ c.button_label }}</a>{% endif %}
       </div>
       {% endfor %}
     </div>

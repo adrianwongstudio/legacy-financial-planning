@@ -6,7 +6,7 @@
   <title>{% if title %}{{ title }} – {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
   <meta name="description" content="{{ description or site.description }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="{{ '/css/style.css' | url }}" />
 </head>
 <body>
 
@@ -28,7 +28,7 @@
         </li>
       </ul>
       <ul class="topbar__links">
-        <li><a href="/contact/">Get a Quote</a></li>
+        <li><a href="{{ '/contact/' | url }}">Get a Quote</a></li>
       </ul>
     </div>
   </div>
@@ -36,7 +36,7 @@
   <!-- Header -->
   <header class="header">
     <div class="wrap">
-      <a class="brand" href="/">
+      <a class="brand" href="{{ '/' | url }}">
         {% if site.logo %}<img src="{{ site.logo }}" alt="{{ site.name }}" />{% endif %}
         <span class="brand__text">Legacy Financial<span>PLANNING</span></span>
       </a>
@@ -44,10 +44,10 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav" id="nav">
-        <a href="/" class="{{ 'active' if page.url == '/' }}">Home</a>
-        <a href="/blog/" class="{{ 'active' if '/blog' in page.url }}">Blog</a>
-        <a href="/contact/" class="{{ 'active' if page.url == '/contact/' }}">Contact</a>
-        <a href="/contact/" class="btn">Get a Quote</a>
+        <a href="{{ '/' | url }}" class="{{ 'active' if page.url == '/' }}">Home</a>
+        <a href="{{ '/blog/' | url }}" class="{{ 'active' if '/blog' in page.url }}">Blog</a>
+        <a href="{{ '/contact/' | url }}" class="{{ 'active' if page.url == '/contact/' }}">Contact</a>
+        <a href="{{ '/contact/' | url }}" class="btn">Get a Quote</a>
       </nav>
     </div>
   </header>
@@ -67,9 +67,9 @@
         <div>
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/blog/">Blog</a></li>
-            <li><a href="/contact/">Contact</a></li>
+            <li><a href="{{ '/' | url }}">Home</a></li>
+            <li><a href="{{ '/blog/' | url }}">Blog</a></li>
+            <li><a href="{{ '/contact/' | url }}">Contact</a></li>
           </ul>
         </div>
         <div>

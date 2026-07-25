@@ -13,9 +13,9 @@ layout: layout.njk
 <section class="section">
   <div class="wrap">
     <article class="article">
-      {% if image %}<img src="{{ image }}" alt="{{ title }}" style="object-position: {{ image_position or 'center' }};" />{% endif %}
+      {% if image %}<img src="{{ image | url }}" alt="{{ title }}" style="object-position: {{ image_position or 'center' }};" />{% endif %}
       {{ content | safe }}
-      <a class="back-link" href="/blog/">&larr; Back to all articles</a>
+      <a class="back-link" href="{{ '/blog/' | url }}">&larr; Back to all articles</a>
     </article>
   </div>
 </section>
