@@ -1,0 +1,16 @@
+{
+  "name": "decap-oauth-proxy",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker OAuth proxy for Decap CMS on GitHub Pages",
+  "private": true,
+  "scripts": {
+    "login": "wrangler login",
+    "secret:client-id": "wrangler secret put OAUTH_CLIENT_ID",
+    "secret:client-secret": "wrangler secret put OAUTH_CLIENT_SECRET",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

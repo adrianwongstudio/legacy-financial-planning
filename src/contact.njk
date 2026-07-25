@@ -47,14 +47,12 @@ description: Get in touch with Legacy Financial Planning. Call, email, or send u
         </div>
       </div>
 
-      <!-- Form (Netlify) -->
+      <!-- Form (Formspree) -->
       <div class="form-card">
         <h2 style="font-size:24px; margin-bottom:20px;">Send us a message</h2>
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/contact/thanks/">
-          <input type="hidden" name="form-name" value="contact" />
-          <p style="display:none;">
-            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-          </p>
+        <form method="POST" action="https://formspree.io/f/mzdnkaay">
+          <input type="hidden" name="_next" value="https://adrianwongstudio.github.io/legacy-financial-planning-test/contact/thanks/" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="form-row">
             <div class="field">
               <label for="name">Full Name</label>

@@ -7,9 +7,8 @@
   <title>Content Manager — Legacy Financial Planning</title>
 </head>
 <body>
-  <!-- Netlify Identity: lets your team log in without a GitHub account -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- Decap CMS: the editing screen -->
+  <!-- Decap CMS: the editing screen. Auth is handled by the github backend
+       + OAuth proxy configured in src/admin/config.yml. -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>

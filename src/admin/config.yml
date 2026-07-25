@@ -1,17 +1,20 @@
 # Decap CMS configuration
-# Editors log in at yoursite.com/admin/ and edit the content below.
-# The values here work once the site is on Netlify with Identity + Git Gateway enabled
-# (see SETUP-GUIDE for the 5-minute setup). To point at a specific GitHub repo instead,
-# replace the backend block with the commented "GitHub backend" example at the bottom.
+# Editors log in at yoursite.com/admin/ with their GitHub account.
 
 backend:
-  name: git-gateway
+  name: github
+  repo: adrianwongstudio/legacy-financial-planning-test
   branch: main
+  # OAuth proxy — Cloudflare Worker at oauth-worker/. Deploy the worker
+  # (see oauth-worker/README.md), then replace this placeholder with the
+  # printed URL.
+  base_url: https://REPLACE_ME_WORKER_URL.workers.dev
+  auth_endpoint: /auth
 
 # Local development: when true, and when Decap detects the decap-server proxy
 # running on localhost, the editor talks straight to your local git repo — no
-# login required. On the deployed site this flag is ignored (Netlify Identity
-# still handles login normally). Start the proxy with `npm run cms` in a second
+# login required. On the deployed site this flag is ignored and GitHub OAuth
+# handles login normally. Start the proxy with `npm run cms` in a second
 # terminal while `npm start` is running.
 local_backend: true
 
@@ -244,12 +247,3 @@ collections:
           - { label: "Address", name: "address", widget: "string" }
           - { label: "Logo", name: "logo", widget: "image", required: false }
 
-# ---------------------------------------------------------------------------
-# ALTERNATIVE: GitHub backend (use this instead of git-gateway if you are not
-# using Netlify Identity). Replace the backend block at the top with:
-#
-# backend:
-#   name: github
-#   repo: your-github-username/legacy-financial-planning
-#   branch: main
-# ---------------------------------------------------------------------------

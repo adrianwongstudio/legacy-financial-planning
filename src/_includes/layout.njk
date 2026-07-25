@@ -7,7 +7,6 @@
   <meta name="description" content="{{ description or site.description }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="/css/style.css" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -88,18 +87,6 @@
     </div>
   </footer>
 
-  <script>
-    // Netlify Identity: after an editor confirms an invite, send them to the editor
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", function (user) {
-        if (!user) {
-          window.netlifyIdentity.on("login", function () {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
   <script>
     // Mobile nav auto-close on link click
     document.querySelectorAll('#nav a').forEach(function (a) {
