@@ -139,11 +139,11 @@
           {% if post.data.image %}<img src="{{ post.data.image | url }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
         </a>
         <div class="post-card__body">
-          <span class="post-card__cat">{{ post.data.category }}</span>
+          <a class="post-card__cat" href="{{ ('/blog/category/' + (post.data.category | slugify) + '/') | url }}">{{ post.data.category }}</a>
           <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
           {% if post.data.tags %}
           <div class="post-card__tags">
-            {% for tag in post.data.tags %}<span class="chip">{{ tag }}</span>{% endfor %}
+            {% for tag in post.data.tags %}<a class="chip" href="{{ ('/blog/tag/' + (tag | slugify) + '/') | url }}">{{ tag }}</a>{% endfor %}
           </div>
           {% endif %}
           <div class="post-card__meta">{{ post.date | readableDate }}</div>

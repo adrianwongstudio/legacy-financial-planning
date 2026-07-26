@@ -1,22 +1,27 @@
 ---
+pagination:
+  data: collections.postsByTag
+  size: 1
+  alias: tag
+permalink: "/blog/tag/{{ tag.name | slugify }}/"
 layout: layout.njk
-title: Blog
-permalink: /blog/
-description: Expert insights, practical tips, and timely updates from Legacy Financial Planning.
+eleventyComputed:
+  title: "#{{ tag.name }} — Blog"
+  description: "Blog posts tagged {{ tag.name }} from Legacy Financial Planning."
 ---
 
 <section class="page-hero">
   <div class="wrap">
-    <span class="eyebrow">Our News &amp; Articles</span>
-    <h1>Our Latest Insights</h1>
-    <p class="crumb">Stay informed and empowered on your financial journey.</p>
+    <span class="eyebrow">Tag</span>
+    <h1>#{{ tag.name }}</h1>
+    <p class="crumb">{{ tag.posts.length }} article{% if tag.posts.length != 1 %}s{% endif %}</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
     <div class="posts">
-      {% for post in collections.posts | reverse %}
+      {% for post in tag.posts | reverse %}
       <article class="post-card">
         <a class="post-card__img" href="{{ post.url | url }}">
           {% if post.data.image %}<img src="{{ post.data.image | url }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
@@ -27,13 +32,16 @@ description: Expert insights, practical tips, and timely updates from Legacy Fin
           <p style="font-size:15px;">{{ post.data.excerpt }}</p>
           {% if post.data.tags %}
           <div class="post-card__tags">
-            {% for tag in post.data.tags %}<a class="chip" href="{{ ('/blog/tag/' + (tag | slugify) + '/') | url }}">{{ tag }}</a>{% endfor %}
+            {% for t in post.data.tags %}<a class="chip" href="{{ ('/blog/tag/' + (t | slugify) + '/') | url }}">{{ t }}</a>{% endfor %}
           </div>
           {% endif %}
           <div class="post-card__meta">{{ post.date | readableDate }}{% if post.data.author %} &middot; {{ post.data.author }}{% endif %}</div>
         </div>
       </article>
       {% endfor %}
+    </div>
+    <div style="text-align:center; margin-top:44px;">
+      <a href="{{ '/blog/' | url }}" class="btn btn--outline">All Articles</a>
     </div>
   </div>
 </section>

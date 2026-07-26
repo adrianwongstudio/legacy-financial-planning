@@ -4,7 +4,7 @@ layout: layout.njk
 
 <section class="page-hero">
   <div class="wrap">
-    <span class="eyebrow">{{ category }}</span>
+    {% if category %}<a class="eyebrow eyebrow--link" href="{{ ('/blog/category/' + (category | slugify) + '/') | url }}">{{ category }}</a>{% endif %}
     <h1>{{ title }}</h1>
     <p class="crumb">{{ date | readableDate }}{% if author %} &middot; by {{ author }}{% endif %}</p>
   </div>
@@ -17,7 +17,7 @@ layout: layout.njk
       {{ content | safe }}
       {% if tags %}
       <div class="article__tags">
-        {% for tag in tags %}<span class="chip">{{ tag }}</span>{% endfor %}
+        {% for tag in tags %}<a class="chip" href="{{ ('/blog/tag/' + (tag | slugify) + '/') | url }}">{{ tag }}</a>{% endfor %}
       </div>
       {% endif %}
       <a class="back-link" href="{{ '/blog/' | url }}">&larr; Back to all articles</a>

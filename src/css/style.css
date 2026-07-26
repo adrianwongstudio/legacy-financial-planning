@@ -232,7 +232,12 @@ img { max-width: 100%; display: block; }
 .post-card__img { aspect-ratio: 16/10; overflow: hidden; background: var(--bg-soft); }
 .post-card__img img { width: 100%; height: 100%; object-fit: cover; }
 .post-card__body { padding: 24px 26px 28px; flex: 1; display: flex; flex-direction: column; }
-.post-card__cat { text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; font-weight: 700; color: var(--gold-dark); }
+.post-card__cat { text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; font-weight: 700; color: var(--gold-dark); text-decoration: none; }
+.post-card__cat:hover { color: var(--navy); }
+.eyebrow--link { text-decoration: none; }
+.eyebrow--link:hover { color: #fff; }
+a.chip { text-decoration: none; transition: background .15s, color .15s; }
+a.chip:hover { background: var(--navy); color: #fff; }
 .post-card h3 { font-size: 20px; margin: 8px 0 10px; }
 .post-card h3 a { color: var(--navy); }
 .post-card h3 a:hover { color: var(--gold-dark); }

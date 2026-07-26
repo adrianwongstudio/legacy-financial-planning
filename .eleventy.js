@@ -29,6 +29,33 @@ module.exports = function (eleventyConfig) {
     collection.getFilteredByGlob("src/posts/*.md")
   );
 
+  // Group posts by category → drives the /blog/category/<slug>/ pages
+  // via pagination in src/blog-category.njk. Only categories with at least
+  // one post produce a page; unused categories from src/_data/categories/
+  // are ignored (no empty pages).
+  eleventyConfig.addCollection("postsByCategory", (collection) => {
+    const buckets = new Map();
+    for (const post of collection.getFilteredByGlob("src/posts/*.md")) {
+      const name = post.data.category;
+      if (!name) continue;
+      if (!buckets.has(name)) buckets.set(name, []);
+      buckets.get(name).push(post);
+    }
+    return Array.from(buckets, ([name, posts]) => ({ name, posts }));
+  });
+
+  // Same idea for tags — drives /blog/tag/<slug>/.
+  eleventyConfig.addCollection("postsByTag", (collection) => {
+    const buckets = new Map();
+    for (const post of collection.getFilteredByGlob("src/posts/*.md")) {
+      for (const name of post.data.tags || []) {
+        if (!buckets.has(name)) buckets.set(name, []);
+        buckets.get(name).push(post);
+      }
+    }
+    return Array.from(buckets, ([name, posts]) => ({ name, posts }));
+  });
+
   return {
     dir: {
       input: "src",
