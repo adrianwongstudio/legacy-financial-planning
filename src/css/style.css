@@ -255,6 +255,48 @@ a.chip:hover { background: var(--navy); color: #fff; }
   letter-spacing: .3px;
 }
 
+/* Blog listing with sidebar ------------------------------------------------ */
+.blog-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 40px;
+  align-items: start;
+}
+.blog-grid .posts { grid-template-columns: repeat(2, 1fr); }
+.blog-sidebar { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 20px; }
+.widget {
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+}
+.widget__title {
+  font-size: 18px;
+  margin: 0 0 14px;
+  color: var(--navy);
+}
+.cat-list { list-style: none; margin: 0; padding: 0; }
+.cat-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(14,42,71,.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.cat-list li:last-child { border-bottom: 0; }
+.cat-list a {
+  color: var(--navy);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+}
+.cat-list a:hover { color: var(--gold-dark); }
+.cat-list__count { color: var(--muted); font-size: 13px; }
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chip--sm { font-size: 12px; padding: 3px 10px; }
+.chip--md { font-size: 14px; padding: 4px 12px; }
+.chip--lg { font-size: 16px; padding: 5px 14px; }
+
 /* Blog post ---------------------------------------------------------------- */
 .page-hero { background: var(--navy); color: #fff; padding: 70px 0 60px; text-align: center; }
 .page-hero h1 { color: #fff; font-size: 40px; margin-bottom: 8px; }
@@ -343,7 +385,9 @@ a.chip:hover { background: var(--navy); color: #fff; }
 
 /* Responsive --------------------------------------------------------------- */
 @media (max-width: 900px) {
-  .features .grid, .services .grid, .posts, .footer .grid { grid-template-columns: 1fr; }
+  .features .grid, .services .grid, .posts, .footer .grid, .blog-grid { grid-template-columns: 1fr; }
+  .blog-grid .posts { grid-template-columns: 1fr; }
+  .blog-sidebar { position: static; }
   .about .wrap, .about--reverse .wrap, .contact-grid { grid-template-columns: 1fr; gap: 32px; direction: ltr; }
   .testimonial__quote { font-size: 22px; }
   .team .grid { grid-template-columns: 1fr; }

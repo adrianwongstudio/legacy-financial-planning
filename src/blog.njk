@@ -15,25 +15,28 @@ description: Expert insights, practical tips, and timely updates from Legacy Fin
 
 <section class="section">
   <div class="wrap">
-    <div class="posts">
-      {% for post in collections.posts | reverse %}
-      <article class="post-card">
-        <a class="post-card__img" href="{{ post.url | url }}">
-          {% if post.data.image %}<img src="{{ post.data.image | url }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
-        </a>
-        <div class="post-card__body">
-          <a class="post-card__cat" href="{{ ('/blog/category/' + (post.data.category | slugify) + '/') | url }}">{{ post.data.category }}</a>
-          <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
-          <p style="font-size:15px;">{{ post.data.excerpt }}</p>
-          {% if post.data.tags %}
-          <div class="post-card__tags">
-            {% for tag in post.data.tags %}<a class="chip" href="{{ ('/blog/tag/' + (tag | slugify) + '/') | url }}">{{ tag }}</a>{% endfor %}
+    <div class="blog-grid">
+      <div class="posts">
+        {% for post in collections.posts | reverse %}
+        <article class="post-card">
+          <a class="post-card__img" href="{{ post.url | url }}">
+            {% if post.data.image %}<img src="{{ post.data.image | url }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
+          </a>
+          <div class="post-card__body">
+            <a class="post-card__cat" href="{{ ('/blog/category/' + (post.data.category | slugify) + '/') | url }}">{{ post.data.category }}</a>
+            <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
+            <p style="font-size:15px;">{{ post.data.excerpt }}</p>
+            {% if post.data.tags %}
+            <div class="post-card__tags">
+              {% for tag in post.data.tags %}<a class="chip" href="{{ ('/blog/tag/' + (tag | slugify) + '/') | url }}">{{ tag }}</a>{% endfor %}
+            </div>
+            {% endif %}
+            <div class="post-card__meta">{{ post.date | readableDate }}{% if post.data.author %} &middot; {{ post.data.author }}{% endif %}</div>
           </div>
-          {% endif %}
-          <div class="post-card__meta">{{ post.date | readableDate }}{% if post.data.author %} &middot; {{ post.data.author }}{% endif %}</div>
-        </div>
-      </article>
-      {% endfor %}
+        </article>
+        {% endfor %}
+      </div>
+      {% include "blog-sidebar.njk" %}
     </div>
   </div>
 </section>

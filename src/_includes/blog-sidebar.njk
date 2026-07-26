@@ -1,0 +1,40 @@
+{# Blog sidebar — used by src/blog.njk, src/blog-category.njk, src/blog-tag.njk.
+   Renders nothing if no categories/tags exist yet, so the layout collapses
+   gracefully on a fresh install. #}
+
+{% set _cats = collections.postsByCategory %}
+{% set _tags = collections.postsByTag %}
+
+{# Tag heatmap size tiers — precompute the max post count once so tiny sites
+   (max = 1 post) still get sensible sizing (everything becomes "sm"). #}
+{% set _tagMax = 1 %}
+{% for t in _tags %}{% if t.posts.length > _tagMax %}{% set _tagMax = t.posts.length %}{% endif %}{% endfor %}
+
+<aside class="blog-sidebar">
+  {% if _cats.length > 0 %}
+  <div class="widget">
+    <h3 class="widget__title">Categories</h3>
+    <ul class="cat-list">
+      {% for cat in _cats %}
+      <li>
+        <a href="{{ ('/blog/category/' + (cat.name | slugify) + '/') | url }}">{{ cat.name }}</a>
+        <span class="cat-list__count">({{ cat.posts.length }})</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if _tags.length > 0 %}
+  <div class="widget">
+    <h3 class="widget__title">Tags</h3>
+    <div class="tag-cloud">
+      {% for tag in _tags %}
+        {% set _ratio = tag.posts.length / _tagMax %}
+        {% set _tier = 'lg' if _ratio >= 0.66 else ('md' if _ratio >= 0.33 else 'sm') %}
+        <a class="chip chip--{{ _tier }}" href="{{ ('/blog/tag/' + (tag.name | slugify) + '/') | url }}" title="{{ tag.posts.length }} article{% if tag.posts.length != 1 %}s{% endif %}">{{ tag.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</aside>

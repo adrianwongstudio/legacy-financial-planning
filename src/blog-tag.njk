@@ -20,28 +20,33 @@ eleventyComputed:
 
 <section class="section">
   <div class="wrap">
-    <div class="posts">
-      {% for post in tag.posts | reverse %}
-      <article class="post-card">
-        <a class="post-card__img" href="{{ post.url | url }}">
-          {% if post.data.image %}<img src="{{ post.data.image | url }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
-        </a>
-        <div class="post-card__body">
-          <a class="post-card__cat" href="{{ ('/blog/category/' + (post.data.category | slugify) + '/') | url }}">{{ post.data.category }}</a>
-          <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
-          <p style="font-size:15px;">{{ post.data.excerpt }}</p>
-          {% if post.data.tags %}
-          <div class="post-card__tags">
-            {% for t in post.data.tags %}<a class="chip" href="{{ ('/blog/tag/' + (t | slugify) + '/') | url }}">{{ t }}</a>{% endfor %}
-          </div>
-          {% endif %}
-          <div class="post-card__meta">{{ post.date | readableDate }}{% if post.data.author %} &middot; {{ post.data.author }}{% endif %}</div>
+    <div class="blog-grid">
+      <div>
+        <div class="posts">
+          {% for post in tag.posts | reverse %}
+          <article class="post-card">
+            <a class="post-card__img" href="{{ post.url | url }}">
+              {% if post.data.image %}<img src="{{ post.data.image | url }}" alt="{{ post.data.title }}" style="object-position: {{ post.data.image_position or 'center' }};" />{% endif %}
+            </a>
+            <div class="post-card__body">
+              <a class="post-card__cat" href="{{ ('/blog/category/' + (post.data.category | slugify) + '/') | url }}">{{ post.data.category }}</a>
+              <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
+              <p style="font-size:15px;">{{ post.data.excerpt }}</p>
+              {% if post.data.tags %}
+              <div class="post-card__tags">
+                {% for t in post.data.tags %}<a class="chip" href="{{ ('/blog/tag/' + (t | slugify) + '/') | url }}">{{ t }}</a>{% endfor %}
+              </div>
+              {% endif %}
+              <div class="post-card__meta">{{ post.date | readableDate }}{% if post.data.author %} &middot; {{ post.data.author }}{% endif %}</div>
+            </div>
+          </article>
+          {% endfor %}
         </div>
-      </article>
-      {% endfor %}
-    </div>
-    <div style="text-align:center; margin-top:44px;">
-      <a href="{{ '/blog/' | url }}" class="btn btn--outline">All Articles</a>
+        <div style="text-align:center; margin-top:44px;">
+          <a href="{{ '/blog/' | url }}" class="btn btn--outline">All Articles</a>
+        </div>
+      </div>
+      {% include "blog-sidebar.njk" %}
     </div>
   </div>
 </section>
