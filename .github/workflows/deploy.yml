@@ -25,12 +25,11 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
-        env:
-          # Site is served under /legacy-financial-planning-test/ on
-          # GitHub Pages. Eleventy's pathPrefix + `| url` filter uses this
-          # to prepend every internal link. If a custom domain is added
-          # later (served from the root), set this to "/" or remove it.
-          PATH_PREFIX: /legacy-financial-planning-test/
+        # PATH_PREFIX intentionally unset — the site is served at the
+        # root of the custom domain (legacyfinancialplanning.ca), so
+        # Eleventy's pathPrefix defaults to "/" and all internal links
+        # resolve at the domain root. If the site ever moves to a
+        # subdirectory again, set PATH_PREFIX here.
       - uses: actions/configure-pages@v5
         with:
           # Enable Pages automatically on first run — no manual

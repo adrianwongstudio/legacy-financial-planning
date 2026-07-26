@@ -2,7 +2,7 @@
 title: Smart Ways to Protect Your Home and Save
 date: 2025-05-30
 category: Insurance
-image: https://legacyfinancialplanning.ca/wp-content/uploads/2021/01/bosa-insurance-img13-420x300.jpg
+image: ""
 excerpt: Protecting your home doesn't have to mean overpaying. A few thoughtful choices can lower your costs while keeping your coverage strong.
 ---
 

@@ -8,6 +8,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/images");
   eleventyConfig.addPassthroughCopy("src/admin/config.yml");
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
+  eleventyConfig.addPassthroughCopy("src/CNAME");
 
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     const date = new Date(dateObj);

@@ -2,7 +2,7 @@
 title: Building a Life Insurance Habit That Lasts
 date: 2025-03-10
 category: Insurance
-image: https://legacyfinancialplanning.ca/wp-content/uploads/2021/01/bosa-insurance-img32-420x300.jpg
+image: ""
 excerpt: Insurance works best when it becomes a habit rather than an afterthought. Here's how to make protecting your family a natural part of your financial routine.
 ---
 

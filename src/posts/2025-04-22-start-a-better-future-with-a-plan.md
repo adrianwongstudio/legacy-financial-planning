@@ -2,7 +2,7 @@
 title: Start a Better Future With a Plan
 date: 2025-04-22
 category: Consulting
-image: https://legacyfinancialplanning.ca/wp-content/uploads/2021/01/bosa-insurance-img33-420x300.jpg
+image: ""
 excerpt: The best time to build a financial plan was years ago. The second best time is today. Here's a simple way to begin.
 ---
 

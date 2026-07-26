@@ -99,7 +99,7 @@
         {
           "name": "Ly Dich",
           "role": "Mutual Funds Advisor",
-          "photo": "https://legacyfinancialplanning.ca/wp-content/uploads/2025/06/IMG-20231217-WA00151-243x300.jpg",
+          "photo": "",
           "bio": "Before entering the world of finance, Ly spent several years as a teacher — an experience that shaped his deep appreciation for education, clear communication, and lifelong learning. Ly believes that financial confidence starts with understanding, and he is passionate about helping individuals and families make informed decisions that align with their goals and values. Whether you're planning for the future or navigating life's unexpected turns, Ly is here to offer guidance, clarity, and support every step of the way."
         },
         {
@@ -119,11 +119,6 @@
       "button_label": "Get in Touch",
       "button_link": "/contact/",
       "style": "navy"
-    },
-    {
-      "type": "tile_grid",
-      "heading": "TEST",
-      "text": "intro test"
     },
     {
       "type": "blog_list",
