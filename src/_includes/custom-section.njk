@@ -141,6 +141,11 @@
         <div class="post-card__body">
           <span class="post-card__cat">{{ post.data.category }}</span>
           <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
+          {% if post.data.tags %}
+          <div class="post-card__tags">
+            {% for tag in post.data.tags %}<span class="chip">{{ tag }}</span>{% endfor %}
+          </div>
+          {% endif %}
           <div class="post-card__meta">{{ post.date | readableDate }}</div>
         </div>
       </article>

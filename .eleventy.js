@@ -21,6 +21,14 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("md", (str) => (str ? md.render(str) : ""));
 
+  // Build the "posts" collection from a glob (instead of using the reserved
+  // `tags: ["posts"]` frontmatter). This keeps the `tags` field 100%
+  // user-facing so editor-defined tags don't collide with Eleventy's
+  // internal collection identifiers.
+  eleventyConfig.addCollection("posts", (collection) =>
+    collection.getFilteredByGlob("src/posts/*.md")
+  );
+
   return {
     dir: {
       input: "src",

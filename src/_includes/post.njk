@@ -15,6 +15,11 @@ layout: layout.njk
     <article class="article">
       {% if image %}<img src="{{ image | url }}" alt="{{ title }}" style="object-position: {{ image_position or 'center' }};" />{% endif %}
       {{ content | safe }}
+      {% if tags %}
+      <div class="article__tags">
+        {% for tag in tags %}<span class="chip">{{ tag }}</span>{% endfor %}
+      </div>
+      {% endif %}
       <a class="back-link" href="{{ '/blog/' | url }}">&larr; Back to all articles</a>
     </article>
   </div>

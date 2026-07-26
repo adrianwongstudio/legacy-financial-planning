@@ -1,6 +1,5 @@
 {
   "layout": "post.njk",
-  "tags": ["posts"],
   "author": "Legacy Financial Planning",
   "permalink": "/blog/{{ page.fileSlug }}/"
 }

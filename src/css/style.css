@@ -237,6 +237,18 @@ img { max-width: 100%; display: block; }
 .post-card h3 a { color: var(--navy); }
 .post-card h3 a:hover { color: var(--gold-dark); }
 .post-card__meta { font-size: 13px; color: #97a3b0; margin-top: auto; }
+.post-card__tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+.article__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 2em 0 1em; padding-top: 1em; border-top: 1px solid var(--line); }
+.chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
 
 /* Blog post ---------------------------------------------------------------- */
 .page-hero { background: var(--navy); color: #fff; padding: 70px 0 60px; text-align: center; }

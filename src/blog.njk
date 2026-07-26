@@ -25,6 +25,11 @@ description: Expert insights, practical tips, and timely updates from Legacy Fin
           <span class="post-card__cat">{{ post.data.category }}</span>
           <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
           <p style="font-size:15px;">{{ post.data.excerpt }}</p>
+          {% if post.data.tags %}
+          <div class="post-card__tags">
+            {% for tag in post.data.tags %}<span class="chip">{{ tag }}</span>{% endfor %}
+          </div>
+          {% endif %}
           <div class="post-card__meta">{{ post.date | readableDate }}{% if post.data.author %} &middot; {{ post.data.author }}{% endif %}</div>
         </div>
       </article>

@@ -42,11 +42,54 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Category", name: "category", widget: "select", options: ["Insurance", "Investments", "Estate Planning", "Consulting", "Financial Planning"], default: "Financial Planning" }
+      - label: "Category"
+        name: "category"
+        widget: "relation"
+        collection: "categories"
+        value_field: "name"
+        search_fields: ["name"]
+        display_fields: ["name"]
+        hint: "Pick one. To add a new category, open the ‘Categories’ section in the sidebar first."
+      - label: "Tags"
+        name: "tags"
+        widget: "relation"
+        collection: "tags"
+        multiple: true
+        value_field: "name"
+        search_fields: ["name"]
+        display_fields: ["name"]
+        required: false
+        hint: "Pick any number. To add a new tag, open the ‘Tags’ section in the sidebar first."
       - { label: "Featured Image", name: "image", widget: "image", required: false, hint: "Upload at least 1200×750 for a sharp result. Shown at the top of the post and on the blog card." }
       - { label: "Image focus point", name: "image_position", widget: "select", options: ["center", "top", "bottom"], default: "center", required: false, hint: "Which part of the image to keep in view when cropped." }
       - { label: "Short Summary", name: "excerpt", widget: "text", hint: "1–2 sentences shown on the blog listing card." }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  # ------------------------------------------------------------- Categories
+  - name: "categories"
+    label: "Categories"
+    label_singular: "Category"
+    folder: "src/_data/categories"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: "name"
+    format: "yml"
+    fields:
+      - { label: "Name", name: "name", widget: "string", hint: "Shown on the blog card and post header. Editing this here also updates it wherever it appears in the CMS dropdowns." }
+
+  # ------------------------------------------------------------------- Tags
+  - name: "tags"
+    label: "Tags"
+    label_singular: "Tag"
+    folder: "src/_data/tags"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: "name"
+    format: "yml"
+    fields:
+      - { label: "Name", name: "name", widget: "string", hint: "Shown on the post as a small chip. Editors can attach any number of tags to a post." }
 
   # --------------------------------------------------------------- Home page
   - name: "home"
