@@ -37,7 +37,7 @@
   <header class="header">
     <div class="wrap">
       <a class="brand" href="{{ '/' | url }}">
-        {% if site.logo %}<img src="{{ site.logo }}" alt="{{ site.name }}" />{% endif %}
+        {% if site.logo %}<img src="{{ site.logo | url }}" alt="{{ site.name }}" />{% endif %}
         <span class="brand__text">Legacy Financial<span>PLANNING</span></span>
       </a>
       <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('is-open')">

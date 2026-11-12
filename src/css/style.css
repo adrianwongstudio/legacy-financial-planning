@@ -105,7 +105,7 @@ img { max-width: 100%; display: block; }
 }
 .header .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 84px; gap: 20px; }
 .brand { display: flex; align-items: center; gap: 12px; }
-.brand img { max-height: 54px; width: auto; }
+.brand img { height: 44px; width: 44px; border-radius: 6px; }
 .brand__text { font-weight: 800; color: var(--navy); font-size: 20px; line-height: 1.1; letter-spacing: .2px; }
 .brand__text span { display: block; font-size: 11px; letter-spacing: 3px; color: var(--gold-dark); font-weight: 700; }
 
